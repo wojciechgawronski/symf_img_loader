@@ -14,8 +14,9 @@
                 {% form_theme registrationForm 'bootstrap_4_layout.html.twig' %}
                 {{ form_start(registrationForm) }}
                     {{ form_row(registrationForm.email) }}
+                    {{ form_row(registrationForm.username) }}
                     {{ form_row(registrationForm.plainPassword, {
-                        label: 'Podaj hasło'
+                        label: 'Hasło:'
                     }) }}
                     {{ form_row(registrationForm.agreeTerms) }}
 
