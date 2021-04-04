@@ -18,11 +18,11 @@ class UserFixtures extends Fixture
         $user = new User();
         $user->setEmail('woj@gaw');
         $user->setUsername('woj');
-        $user->setRoles('ROLE_USER');
+        $user->setRoles(['ROLE_USER']);
         $user->setPassword($this->passwordEncoder->encodePassword($user, 'password1'));
 
         //zatwierdzenie w managerze
-        $manager->persist();
+        $manager->persist($user);
 
         $manager->flush();
     }
