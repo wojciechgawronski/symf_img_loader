@@ -14,7 +14,7 @@ class IndexController extends AbstractController
     {
         $form = $this->createForm(UploadPhotoType::class);
         return $this->render('index/index.html.twig', [
-            'form' => $form->createView()
+            'uploadForm' => $form->createView()
         ]);
     }
 }

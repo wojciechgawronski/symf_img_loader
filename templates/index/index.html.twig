@@ -6,18 +6,20 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <form action="" method="post">
-                    <div class="mb-3">
-                        <label for="formFile" class="form-label">Dodaj zdjęcie</label>
-                        <input class="form-control" type="file" id="formFile">
-                    </div>
+                {{ form_start(uploadForm) }}
+                {{ form_end(uploadForm) }}
 
-                    <div class="mb-3 form-check">
-                        <input name="isPublic" type="checkbox" class="form-check-input" id="isPublic">
-                        <label class="form-check-label" for="isPublic" >Publiczne</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Wyślij</button>
-                </form>
+{#                <form action="" method="post">#}
+{#                    <div class="mb-3">#}
+{#                        <label for="formFile" class="form-label">Dodaj zdjęcie</label>#}
+{#                        <input class="form-control" type="file" id="formFile">#}
+{#                    </div>#}
+
+{#                    <div class="mb-3 form-check">#}
+{#                        <input name="isPublic" type="checkbox" class="form-check-input" id="isPublic">#}
+{#                        <label class="form-check-label" for="isPublic" >Publiczne</label>#}
+{#                    </div>#}
+{#                </form>#}
             </div>
 
         </div>
