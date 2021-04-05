@@ -39,15 +39,19 @@
                     </li>
                 </ul>
                 <ul class="nav mt-2">
+                    {% if app.user %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Log <span class="text-warning fw-bold">Out</span></a>
+                        <a class="nav-link" href="{{ path('app_logout') }}">Log <span class="text-warning fw-bold">Out</span></a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_login') }}">Log <span class="text-warning fw-bold">In</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Log <span class="text-warning fw-bold">In</span></a>
+                        <a class="nav-link pe-0" href="{{ path('app_register') }}">Register</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link pe-0" href="#">Register</a>
-                    </li>
+                    {% endif %}
+
                 </ul>
             </nav>
             <hr class="mt-2 mb-4">
