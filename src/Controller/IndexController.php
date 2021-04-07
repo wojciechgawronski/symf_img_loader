@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Photo;
 use App\Form\UploadPhotoType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,17 +25,29 @@ class IndexController extends AbstractController
             if($this->getUser()){ // czy zalogowany ?
 
                 /*
-                 * Zapis pliku do bazy danych
+                 * Zapis zdjęcia do pliku
                  */
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityPhoto = new Photo();
-                $entityPhoto->setFilename($form->get('filename')->getData());
-                $entityPhoto->setIsPublic($form->get('is_public')->getData());
-                $entityPhoto->setUploadedAt(new \DateTime());
-                $entityPhoto->setUser($this->getUser());
+                $pictureFileName = $form->get('filename')->getData();
+                if($pictureFileName){
+                    /** @var UploadedFile $pictureFileName */
+                    $orginalFileName = pathinfo($pictureFileName->getClientOriginalName(), PATHINFO_FILENAME);
+                    $safeFileName = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $orginalFileName);
+                    $safeFileName = $safeFileName . "_" . uniqid() . '.' . $pictureFileName->guessClientExtension();
+                    $pictureFileName->move('images/hosting/' . $safeFileName);
 
-                $entityManager->persist($entityPhoto);
-                $entityManager->flush();
+                    /*
+                     * Zapis pliku do bazy danych
+                     */
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityPhoto = new Photo();
+                    $entityPhoto->setFilename($safeFileName);
+                    $entityPhoto->setIsPublic($form->get('is_public')->getData());
+                    $entityPhoto->setUploadedAt(new \DateTime());
+                    $entityPhoto->setUser($this->getUser());
+
+                    $entityManager->persist($entityPhoto);
+                    $entityManager->flush();
+                }
 
             }
         }
