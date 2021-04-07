@@ -4,12 +4,10 @@ namespace App\Form;
 
 use App\Entity\Photo;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\SubmitButton;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 
@@ -35,6 +33,9 @@ class UploadPhotoType extends AbstractType
             ])
             ->add('is_public', CheckboxType::class, [
                 'label' => 'Publiczne',
+                'label_attr' => [
+                    'class' => 'text-warning'
+                ],
                 'attr' => [
                     'class' => 'm-2 mb-3'],
                 'required' => false
