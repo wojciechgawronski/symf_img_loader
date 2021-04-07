@@ -33,7 +33,7 @@ class IndexController extends AbstractController
                     $orginalFileName = pathinfo($pictureFileName->getClientOriginalName(), PATHINFO_FILENAME);
                     $safeFileName = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $orginalFileName);
                     $safeFileName = $safeFileName . "_" . uniqid() . '.' . $pictureFileName->guessClientExtension();
-                    $pictureFileName->move('images/hosting/' . $safeFileName);
+                    $pictureFileName->move('images/hosting', $safeFileName);
 
                     /*
                      * Zapis pliku do bazy danych
