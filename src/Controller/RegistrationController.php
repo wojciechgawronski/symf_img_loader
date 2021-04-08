@@ -17,7 +17,7 @@ class RegistrationController extends AbstractController
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator): Response
     {
-        if($this->getUser()){
+        if ($this->getUser()) {
             return $this->redirectToRoute('index');
         }
 

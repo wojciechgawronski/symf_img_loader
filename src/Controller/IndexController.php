@@ -17,9 +17,7 @@ class IndexController extends AbstractController
     public function index(Request $request): Response
     {
         $form = $this->createForm(UploadPhotoType::class);
-
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             if ($this->getUser()) { // czy zalogowany ?
 
