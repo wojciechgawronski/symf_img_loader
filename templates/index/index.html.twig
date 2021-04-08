@@ -3,11 +3,31 @@
 {% block title %}Hello IndexController!{% endblock %}
 
 {% block content %}
+
+    <style>
+        form div ul{
+            padding-left: 0;
+        }
+        form div ul li {
+            width: 100%;
+            background: orange;
+            color: #2e3136;
+            padding: 1rem;
+            margin-top: 5px;
+        }
+    </style>
+
     <div class="container">
         <div class="row">
             <div class="col-md-6">
                 {{ form_start(uploadForm) }}
                 {{ form_end(uploadForm) }}
+                {% for message in app.flashes('succes') %}
+                    <div class="alert alert-success rounded-0 mt-3">{{ message }}</div>
+                {% endfor %}
+                {% for message in app.flashes('error') %}
+                    <div class="alert alert-danger rounded-0 mt-3">{{ message }}</div>
+                {% endfor %}
 
 {#                <form action="" method="post">#}
 {#                    <div class="mb-3">#}

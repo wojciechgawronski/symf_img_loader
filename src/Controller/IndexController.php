@@ -20,35 +20,39 @@ class IndexController extends AbstractController
 
         $form->handleRequest($request);
 
-        if( $form->isSubmitted() && $form->isValid()) {
-
-            if($this->getUser()){ // czy zalogowany ?
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($this->getUser()) { // czy zalogowany ?
 
                 /*
                  * Zapis zdjęcia do pliku
                  */
                 $pictureFileName = $form->get('filename')->getData();
-                if($pictureFileName){
-                    /** @var UploadedFile $pictureFileName */
-                    $orginalFileName = pathinfo($pictureFileName->getClientOriginalName(), PATHINFO_FILENAME);
-                    $safeFileName = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $orginalFileName);
-                    $safeFileName = $safeFileName . "_" . uniqid() . '.' . $pictureFileName->guessClientExtension();
-                    $pictureFileName->move('images/hosting', $safeFileName);
 
-                    /*
-                     * Zapis pliku do bazy danych
-                     */
-                    $entityManager = $this->getDoctrine()->getManager();
-                    $entityPhoto = new Photo();
-                    $entityPhoto->setFilename($safeFileName);
-                    $entityPhoto->setIsPublic($form->get('is_public')->getData());
-                    $entityPhoto->setUploadedAt(new \DateTime());
-                    $entityPhoto->setUser($this->getUser());
+                if ($pictureFileName) {
+                    try {
+                        /** @var UploadedFile $pictureFileName */
+                        $orginalFileName = pathinfo($pictureFileName->getClientOriginalName(), PATHINFO_FILENAME);
+                        $safeFileName = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $orginalFileName);
+                        $safeFileName = $safeFileName . "_" . uniqid() . '.' . $pictureFileName->guessClientExtension();
+                        $pictureFileName->move('images/hosting', $safeFileName);
 
-                    $entityManager->persist($entityPhoto);
-                    $entityManager->flush();
+                        /*
+                         * Zapis pliku do bazy danych
+                         */
+                        $entityManager = $this->getDoctrine()->getManager();
+                        $entityPhoto = new Photo();
+                        $entityPhoto->setFilename($safeFileName);
+                        $entityPhoto->setIsPublic($form->get('is_public')->getData());
+                        $entityPhoto->setUploadedAt(new \DateTime());
+                        $entityPhoto->setUser($this->getUser());
+
+                        $entityManager->persist($entityPhoto);
+                        $entityManager->flush();
+                        $this->addFlash('succes', 'Dodano zdjecie');
+                    } catch (\Exception $exception) {
+                        $this->addFlash('error', 'Wystąpił nieoczekiwany błąd');
+                    }
                 }
-
             }
         }
 

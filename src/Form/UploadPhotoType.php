@@ -27,7 +27,7 @@ class UploadPhotoType extends AbstractType
                         'mimeTypes' => [
                             'image/*'
                         ],
-                        'mimeTypesMessage' => 'Obslugiwany format pliku to obrazem'
+                        'mimeTypesMessage' => 'Obslugiwany format pliku musi byc obrazem',
                     ])
                 ]
             ])
