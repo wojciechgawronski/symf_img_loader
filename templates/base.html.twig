@@ -32,10 +32,13 @@
                         <a class="nav-link {% if app.request.get('_route') == 'index' %}text-warning{% endif %}" aria-current="page" href="{{ path('index') }}">Start</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">News</a>
+                        <a class="nav-link {% if app.request.get('_route') == 'new_photos' %}text-warning{% endif %}" href="{{ path('new_photos') }}">News</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Photos</a>
+                        <a class="nav-link {% if app.request.get('_route') == 'photos' %}text-warning{% endif %}" href="#">Photos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if app.request.get('_route') == 'photos' %}text-warning{% endif %}" href="#">My Photos</a>
                     </li>
                 </ul>
                 <ul class="nav mt-2">
