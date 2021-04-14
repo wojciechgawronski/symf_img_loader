@@ -5,8 +5,21 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col">
-            latest
+        <div class="col-md-6">
+            <h1>Najnowsze zdjęcia</h1>
+            {% for photo in latestPhotoPublic %}
+                <a href="/images/hosting/{{ photo.filename }}">
+                    ​<figure>
+                        <img src="/images/hosting/{{ photo.filename }}"
+                         alt="..." class="img-fluid">
+                        <figcaption class="text-warning d-flex justify-content-between">
+                            <div class="fw-bold">{{ photo.uploadedAt|date('d.m.Y, H:i:s') }}</div>
+                            <div class="fw-bold">{{ photo.user.username }}</div>
+                        </figcaption>
+                    </figure>
+                </a>
+            {% endfor %}
+            {{  app.request.get('_path') }}
         </div>
     </div>
 </div>
