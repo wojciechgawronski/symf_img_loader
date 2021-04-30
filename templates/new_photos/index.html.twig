@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Latest photos..{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Najnowsze zdjęcia</h1>
+            {% for photo in latestPhotoPublic %}
+                <a href="{{ asset('') }}images/hosting/{{ photo.filename }}">
+                    ​<figure>
+                        <img src="{{ asset('') }}images/hosting/{{ photo.filename }}"
+                         alt="..." class="img-fluid">
+                        <figcaption class="text-warning d-flex justify-content-between">
+                            <div class="fw-bold">{{ photo.uploadedAt|date('d.m.Y, H:i:s') }}</div>
+                            <div class="fw-bold">{{ photo.user.username }}</div>
+                        </figcaption>
+                    </figure>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+    <br>
+</div>
+{% endblock %}

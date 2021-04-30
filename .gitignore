@@ -17,8 +17,3 @@
 /.idea/
 .idea/workspace.xml
 /public/images/hosting/
-
-###> squizlabs/php_codesniffer ###
-/.phpcs-cache
-/phpcs.xml
-###< squizlabs/php_codesniffer ###
